@@ -27,7 +27,7 @@ public class Player {
 
     private boolean isAI;
 
-    public Player(ArrayList<Player> playerList,Settings currentGameSettings, String name, int number) {
+    public Player(Settings currentGameSettings, String name, int number) {
         this.name = name;
         this.number = number;
         buildShipArray(currentGameSettings);

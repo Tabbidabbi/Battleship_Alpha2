@@ -38,7 +38,7 @@ public class Game {
         for (int i = 1; i <= currentGameSettings.getAmountOfPlayer(); i++) {
             IO.print("Spieler " + (i) + " - Geben Sie ihren Namen ein: ");
             String name = IO.readString();//Einlesen des Spielernamens
-            Player player = new Player(playerList, currentGameSettings, name, playerNumber);
+            Player player = new Player(currentGameSettings, name, playerNumber);
             playerList.add(player);
             playerNumber++;
 
@@ -60,10 +60,9 @@ public class Game {
 
                     if (input == ship.getNumber()) {
                         Helper.checkOrientation();
-                        if (ship.equals(player.getShips().get(input))) {
-                        player.getShips().remove(input);
+                        player.getShips().remove(ship);
                         player.printShipList();
-                        }
+                        
                         error = false;
                     } else {
                         IO.println("Falsche Eingabe, bitte erneut eingeben: ");
