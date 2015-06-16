@@ -2,7 +2,7 @@ package Gameobjects.Ships;
 
 public class Destroyer extends Ship {
 
-    String name = "Zerstoerer";
+    String name = "Zerstörer";
 
 	//Zerstörer positionieren
     public Destroyer(int number) {

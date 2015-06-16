@@ -3,10 +3,15 @@ package Gameobjects.Player;
 import Game.Settings;
 import Gameobjects.Playfield.Playfield;
 import Gameobjects.Ships.*;
+import IO.IO;
 import java.util.ArrayList;
+import Game.Game;
 
 public class Player {
-
+    
+    
+    private int input;
+    
     private int number;
 
     private String name;
@@ -22,7 +27,7 @@ public class Player {
 
     private boolean isAI;
 
-    public Player(Settings currentGameSettings, String name, int number) {
+    public Player(ArrayList<Player> playerList,Settings currentGameSettings, String name, int number) {
         this.name = name;
         this.number = number;
         buildShipArray(currentGameSettings);
@@ -58,4 +63,72 @@ public class Player {
 
         }
     }
-}
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<Ship> getShips() {
+        return ships;
+    }
+
+    public void setShips(ArrayList<Ship> ships) {
+        this.ships = ships;
+    }
+
+    public Playfield getPlayfield() {
+        return playfield;
+    }
+
+    public void setPlayfield(Playfield playfield) {
+        this.playfield = playfield;
+    }
+
+    public Playfield getOpponentField() {
+        return opponentField;
+    }
+
+    public void setOpponentField(Playfield opponentField) {
+        this.opponentField = opponentField;
+    }
+
+    public boolean isLost() {
+        return lost;
+    }
+
+    public void setLost(boolean lost) {
+        this.lost = lost;
+    }
+
+    public boolean isIsAI() {
+        return isAI;
+    }
+
+    public void setIsAI(boolean isAI) {
+        this.isAI = isAI;
+    }
+    
+ 
+    
+    public void printShipList() {
+
+        for (Ship ship : ships) {
+            IO.println(ship.getNumber() + ")" + ship.getName() + "\t" 
+                    + " Größe " + "(" + ship.getSize() + ")");
+        }
+    }
+    
+    }
+

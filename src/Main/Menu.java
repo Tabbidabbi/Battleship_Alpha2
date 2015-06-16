@@ -106,6 +106,7 @@ public class Menu {
                        input = Helper.checkUserInput("Spielfeldgröße: ", 8, 26);
                         gameSettings.setPlayfieldSize(input);
                         showGameSettings();
+                        break;
                     case 8:
                         showMainMenu();
                         break;
