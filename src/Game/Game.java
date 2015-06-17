@@ -39,11 +39,7 @@ public class Game {
         for (int i = 1; i <= currentGameSettings.getAmountOfPlayer(); i++) {
             IO.print("Spieler " + (i) + " - Geben Sie ihren Namen ein: ");
             String name = IO.readString();//Einlesen des Spielernamens
-<<<<<<< HEAD
-            Player player = new Player(currentGameSettings, name, playerNumber);
-=======
             Player player = new Player(playerList, currentGameSettings, name, playerNumber);
->>>>>>> tobias
             playerList.add(player);
             playerNumber++;
 
@@ -57,32 +53,6 @@ public class Game {
         for (Player player : playerList) {
             IO.println("Spieler " + player.getName() + " Sie können nun folgende Schiffe setzen: ");
             player.printShipList();
-<<<<<<< HEAD
-            IO.println("Welches Schiff möchten Sie setzen: ");
-            for (Ship ship : player.getShips()) {
-
-                do {
-                    input = IO.readInt();
-
-                    if (input == ship.getNumber()) {
-                        Helper.checkOrientation();
-                        player.getShips().remove(ship);
-                        player.printShipList();
-                        
-                        error = false;
-                    } else {
-                        IO.println("Falsche Eingabe, bitte erneut eingeben: ");
-                        error = true;
-
-                    }
-
-                } while (error);
-            }
-
-        }
-    }
-}
-=======
             ArrayList<Ship> ships = player.getShips();
             System.out.println(ships.size());
             for (int s = 0; s < ships.size();) {
@@ -219,4 +189,3 @@ public class Game {
         return true;
     }
 }
->>>>>>> tobias

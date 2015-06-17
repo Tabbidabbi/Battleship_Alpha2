@@ -125,19 +125,9 @@ public class Player {
     public void printShipList() {
 
         for (Ship ship : ships) {
-<<<<<<< HEAD
-            IO.println(ship.getNumber() + ")" + ship.getName() + "\t" 
-                    + " Größe " + "(" + ship.getSize() + ")");
-        }
-    }
-    
-    }
-
-=======
             IO.println(ship.getName() + "\t" + ship.getNumber() + "\t"
                     + " Größe " + "(" + ship.getSize() + ")");
         }
     }
     
     }
->>>>>>> tobias
