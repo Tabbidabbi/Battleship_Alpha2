@@ -100,6 +100,14 @@ public class Playfield {
     public void setFieldNumber(String fieldNumber) {
         this.fieldNumber = fieldNumber;
     }
+
+    public Field[][] getFieldMatrix() {
+        return fieldMatrix;
+    }
+
+    public void setFieldMatrix(Field[][] fieldMatrix) {
+        this.fieldMatrix = fieldMatrix;
+    }
     
     
 }

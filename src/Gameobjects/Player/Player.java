@@ -27,7 +27,7 @@ public class Player {
 
     private boolean isAI;
 
-    public Player(Settings currentGameSettings, String name, int number) {
+    public Player(ArrayList<Player> playerList,Settings currentGameSettings, String name, int number) {
         this.name = name;
         this.number = number;
         buildShipArray(currentGameSettings);
@@ -125,6 +125,7 @@ public class Player {
     public void printShipList() {
 
         for (Ship ship : ships) {
+<<<<<<< HEAD
             IO.println(ship.getNumber() + ")" + ship.getName() + "\t" 
                     + " Größe " + "(" + ship.getSize() + ")");
         }
@@ -132,3 +133,11 @@ public class Player {
     
     }
 
+=======
+            IO.println(ship.getName() + "\t" + ship.getNumber() + "\t"
+                    + " Größe " + "(" + ship.getSize() + ")");
+        }
+    }
+    
+    }
+>>>>>>> tobias
