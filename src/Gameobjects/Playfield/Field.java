@@ -41,7 +41,7 @@ public class Field {
         this.isShot = isShot;
     }
 
-    public boolean isIsWater() {
+    public boolean getIsWater() {
         return isWater;
     }
 
