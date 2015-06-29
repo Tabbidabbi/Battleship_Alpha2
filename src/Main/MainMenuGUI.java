@@ -1,14 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * To change this license headerL, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Main;
 
-import Multimedia.BackgroundImage;
+import Multimedia.BackgroundImagePanel;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import Game.*;  
 
 /**
  *
@@ -16,29 +17,26 @@ import javax.swing.*;
  */
 public class MainMenuGUI extends JFrame implements ActionListener {
 
-    BackgroundImage bImage;
+    
+    JPanel backGroundP;
     Box buttonBox;
-    JLabel header;
+    JLabel headerL;
     JPanel menuP;
     JPanel headerP;
     JButton[] menuButtons = {new JButton("Neues Spiel"), new JButton("Spiel Laden"), new JButton("Einstellungen"),
         new JButton("Anleitung"), new JButton("Spiel Verlassen")};
 
-//    JButton bNewGame = new JButton("Neues Spiel");
-//    JButton bLoadGame = new JButton("Spiel Laden");
-//    JButton bGameSettings = new JButton("Einstellungen");
-//    JButton bInstructions = new JButton("Anleitung");
-//    JButton bExitGame = new JButton("Spiel Verlassen");
-    Dimension di = menuButtons[4].getMaximumSize();
+    final Dimension MAXBUTTONSIZE = menuButtons[4].getMaximumSize();
 
-    public MainMenuGUI() {
+    public  MainMenuGUI() {
         setTitle("Battleship");
-        setContentPane(bImage = new BackgroundImage("G:\\hs\\Prog2\\Battleship_Alpha2\\Images\\background.jpg"));
-
-        header = new JLabel("Schiffeversenken Alpha_2");
-        header.setFont(new Font("Serif", 25, 25));
+        backGroundP = new BackgroundImagePanel("G:\\hs\\Prog2\\Battleship_Alpha2\\Images\\background.jpg");
+//        backGroundP.setLayout(new CardLayout());
+        
+        headerL = new JLabel("Schiffeversenken Alpha_2");
+        headerL.setFont(new Font("Serif", 25, 25));
         headerP = new JPanel();
-        headerP.add(header);
+        headerP.add(headerL);
         headerP.setPreferredSize(new Dimension(700, 50));
         headerP.setOpaque(false);
 
@@ -47,65 +45,71 @@ public class MainMenuGUI extends JFrame implements ActionListener {
         for (int i = 0; i < menuButtons.length; i++) {
             buttonBox.add(menuButtons[i]);
             buttonBox.add(Box.createRigidArea(new Dimension(0, 10)));
-            menuButtons[i].setMaximumSize(di);
+            menuButtons[i].setMaximumSize(MAXBUTTONSIZE);
             menuButtons[i].setBackground(Color.white);
             menuButtons[i].setForeground(Color.black);
-            menuButtons[i].setFont(new Font("Serif",10,13));
+            menuButtons[i].setFont(new Font("Serif", 10, 13));
             menuButtons[i].setActionCommand("" + i);
             menuButtons[i].addActionListener(this);
 
         }
-//        bNewGame.setMaximumSize(di);
-//        bNewGame.setBackground(Color.lightGray);
-//        bLoadGame.setMaximumSize(di);
-//        bGameSettings.setMaximumSize(di);
-//        bInstructions.setMaximumSize(di);
-//
-//        buttonBox.add(bNewGame);
-//        buttonBox.add(Box.createRigidArea(new Dimension(0, 10)));
-//        buttonBox.add(bLoadGame);
-//        buttonBox.add(Box.createRigidArea(new Dimension(0, 10)));
-//        buttonBox.add(bGameSettings);
-//        buttonBox.add(Box.createRigidArea(new Dimension(0, 10)));
-//        buttonBox.add(bInstructions);
-//        buttonBox.add(Box.createRigidArea(new Dimension(0, 10)));
-//        buttonBox.add(bExitGame);
+        
+        menuP = new JPanel();
+        menuP.setLayout(new CardLayout());
+        menuP.add(buttonBox);
+        menuP.setOpaque(false);
 
-        bImage.add(headerP);
-        bImage.add(buttonBox);
+        backGroundP.add(headerP);
+        backGroundP.add(menuP);
+        add(backGroundP);
 
-        setBounds(450, 50, 800, 600);
         setVisible(true);
+        setBounds(450, 50, 800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
         String command = e.getActionCommand();
         int input = Integer.parseInt(command);
-        
-        
-        switch(input) {
+
+        switch (input) {
             case 0:
-                
+                GameGui gg = new GameGui();
                 break;
             case 1:
                 break;
             case 2:
-                break;
+                SettingsGui settingsGui = new SettingsGui();
+                headerP.setVisible(false);
+                menuP.setVisible(false);
+                backGroundP.add(settingsGui);
+                
+//                repaint();
+                
+               break;
             case 3:
                 break;
             case 4:
                 System.exit(0);
                 break;
-                
+
         }
     }
 
     public static void main(String[] args) {
         MainMenuGUI gUI = new MainMenuGUI();
+    }
+    
+
+    public void setMenuP(JPanel menuP) {
+        this.menuP = menuP;
+    }
+
+    public void setHeaderP(JPanel headerP) {
+        this.headerP = headerP;
     }
 
 }
