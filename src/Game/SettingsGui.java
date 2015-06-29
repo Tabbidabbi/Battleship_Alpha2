@@ -15,23 +15,39 @@ import Main.*;
  *
  * @author Tobias
  */
-public class SettingsGui extends JPanel implements ActionListener {
+public class SettingsGui extends JFrame implements ActionListener {
     
     JLabel headerL;
     JPanel headerP;
     
-    JButton backButton, resetSettingsButton, confirmButton;
+    JComboBox<Integer>ammountPlayerComboBox = new JComboBox<>();
+    JLabel playerComboBoxLabel = new JLabel("Anzahl der Spieler");
+    JPanel playerComboBoxP;
+    
+    
+    
+    JLabel[]ammountPlayersLabel = {new JLabel("Spieler 1:"), new JLabel("Spieler 2:"),new JLabel("Spieler 3:"),
+                                   new JLabel("Spieler 4:"),new JLabel("Spieler 5:"),new JLabel("Spieler 6:")}; 
+    JTextField[]playerTextFields = new JTextField[6];
+    JCheckBox[]kiCheckboxes = new JCheckBox[6];
+    JPanel[]singlePlayerP = new JPanel[6];
+    JPanel playerP;
+    
+    
     JPanel buttonP;
+    JButton backButton, resetSettingsButton, confirmButton;
     
-    JTextField[] textFields = {new JTextField(2), new JTextField(2), new JTextField(2), 
-                               new JTextField(2), new JTextField(2), new JTextField(2),
-                               new JTextField(2)};
-    JLabel[] textLabel = {new JLabel("Anzahl Spieler ändern:"), new JLabel("Anzahl Ki-Spieler ändern:"), new JLabel("Anzahl der Zerstörer ändern:"),
-                          new JLabel("Anzahl der Fregatten ändern:"), new JLabel("Anzahl der Korvetten ändern:"), new JLabel("Anzahl der U-Boote ändern:"),
-                          new JLabel("Spielfeldgröße ändern:")};
-    JPanel[] componentP = {new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel(), new JPanel()} ;
     
-    JPanel textFieldP;
+    
+    
+    JTextField[]shipTextFields = new JTextField[4];
+    JLabel[] shipLabel = {new JLabel("Anzahl der Zerstörer:"),
+                          new JLabel("Anzahl der Fregatten:"), new JLabel("Anzahl der Korvetten:"),
+                          new JLabel("Anzahl der U-Boote:")};
+    JPanel[] singleShipP = new JPanel[4];
+    
+    JPanel shipFieldsPanel;
+    JPanel categoriePanel; 
     JPanel backPanel;
     
     
@@ -45,17 +61,44 @@ public class SettingsGui extends JPanel implements ActionListener {
         headerP.setPreferredSize(new Dimension(700, 50));
         headerP.setOpaque(false);
         
-        textFieldP = new JPanel();
-        textFieldP.setLayout(new BoxLayout(textFieldP, BoxLayout.Y_AXIS));
-        for (int i = 0; i < componentP.length; i++) {
-            componentP[i].add(textLabel[i]);
-            componentP[i].add(textFields[i]);
-            textLabel[i].setPreferredSize(new Dimension(200, 35));
-            textLabel[i].setFont(new Font("Serif", 10, 15));
-            textLabel[i].setHorizontalAlignment(SwingConstants.CENTER);
-            textFieldP.add(componentP[i]);
+        playerComboBoxP = new JPanel();
+        for (int i = 2; i <= 6;i++){
+            ammountPlayerComboBox.addItem(i);
             
         }
+        playerComboBoxP.add(playerComboBoxLabel);
+        playerComboBoxP.add(ammountPlayerComboBox);
+        
+        playerP = new JPanel();
+        playerP.setLayout(new BoxLayout(playerP, BoxLayout.Y_AXIS));
+        for (int i = 0; i < playerTextFields.length;i++) {
+            playerTextFields[i] = new JTextField("Spieler" + (i + 1), 10);
+            singlePlayerP[i] = new JPanel();
+            kiCheckboxes[i] = new JCheckBox("Is KI");
+            singlePlayerP[i].add(ammountPlayersLabel[i]);
+            singlePlayerP[i].add(playerTextFields[i]);
+            singlePlayerP[i].add(kiCheckboxes[i]);
+            playerP.add(singlePlayerP[i]);
+            
+        }
+        
+      shipFieldsPanel= new JPanel();
+        shipFieldsPanel.setLayout(new BoxLayout(shipFieldsPanel, BoxLayout.Y_AXIS));
+        for (int i = 0; i < 4; i++) {
+            shipTextFields[i] = new JTextField(2);
+            singleShipP[i] = new JPanel();
+            singleShipP[i].add(shipLabel[i]);
+            singleShipP[i].add(shipTextFields[i]);
+            shipFieldsPanel.add(singleShipP[i]);
+            shipLabel[i].setFont(new Font("Serif", 10, 15));
+            shipLabel[i].setHorizontalAlignment(SwingConstants.CENTER);
+            
+        }
+        categoriePanel = new JPanel();
+        categoriePanel.setLayout(new BoxLayout(categoriePanel, BoxLayout.X_AXIS));
+        categoriePanel.add(playerComboBoxP);
+        categoriePanel.add(playerP);
+        categoriePanel.add(shipFieldsPanel);
         
         backButton = new JButton("Zurück");
         backButton.setActionCommand("back");
@@ -83,12 +126,14 @@ public class SettingsGui extends JPanel implements ActionListener {
         backPanel = new JPanel();
         backPanel.setLayout(new BoxLayout(backPanel, BoxLayout.Y_AXIS));
         backPanel.add(headerP);
-        backPanel.add(textFieldP);
-        backPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        backPanel.add(categoriePanel);
+//        backPanel.add(textFieldP);
+        backPanel.add(Box.createRigidArea(new Dimension(0, 80)));
         backPanel.add(buttonP);
 
         
         add(backPanel);
+        setSize(800, 600);
         setVisible(true);
     }
     
@@ -99,7 +144,7 @@ public class SettingsGui extends JPanel implements ActionListener {
         String input = e.getActionCommand();
         
         if (input.equals("back")) {
-            
+            setBackground(Color.yellow);
         }
         
         
