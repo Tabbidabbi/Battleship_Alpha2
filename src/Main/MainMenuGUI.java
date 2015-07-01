@@ -1,5 +1,5 @@
 /*
- * To change this license headerL, choose License Headers in Project Properties.
+ * To change this license headerLabel, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,39 +9,38 @@ import Multimedia.BackgroundImagePanel;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import Game.*;  
+import Game.*;
 
 /**
  *
  * @author Tobias
  */
-public class MainMenuGUI extends JFrame implements ActionListener {
+public class MainMenuGui extends JPanel {
 
-    
-    JPanel backGroundP;
+    public JPanel backGroundIMGPanel;
     Box buttonBox;
-    JLabel headerL;
-    JPanel menuP;
-    JPanel headerP;
+    JLabel headerLabel;
+    JPanel menuButtonPanel;
+    JPanel headerPanel;
+    public JPanel menuPanel;
     JButton[] menuButtons = {new JButton("Neues Spiel"), new JButton("Spiel Laden"), new JButton("Einstellungen"),
         new JButton("Anleitung"), new JButton("Spiel Verlassen")};
+    
+    public CardLayout cardLayout = new CardLayout();
 
     final Dimension MAXBUTTONSIZE = menuButtons[4].getMaximumSize();
+    
 
-    public  MainMenuGUI() {
-        setTitle("Battleship");
-        backGroundP = new BackgroundImagePanel("G:\\hs\\Prog2\\Battleship_Alpha2\\Images\\background.jpg");
-//        backGroundP.setLayout(new CardLayout());
-        
-        headerL = new JLabel("Schiffeversenken Alpha_2");
-        headerL.setFont(new Font("Serif", 25, 25));
-        headerP = new JPanel();
-        headerP.add(headerL);
-        headerP.setPreferredSize(new Dimension(700, 50));
-        headerP.setOpaque(false);
+    public MainMenuGui() {
+        headerLabel = new JLabel("Schiffeversenken Alpha_2");
+        headerLabel.setFont(new Font("Serif", 25, 25));
+        headerPanel = new JPanel();
+        headerPanel.add(headerLabel);
+        headerPanel.setOpaque(false);
 
         buttonBox = new Box(BoxLayout.Y_AXIS);
         buttonBox.add(Box.createRigidArea(new Dimension(1, 35)));
+
         for (int i = 0; i < menuButtons.length; i++) {
             buttonBox.add(menuButtons[i]);
             buttonBox.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -49,67 +48,33 @@ public class MainMenuGUI extends JFrame implements ActionListener {
             menuButtons[i].setBackground(Color.white);
             menuButtons[i].setForeground(Color.black);
             menuButtons[i].setFont(new Font("Serif", 10, 13));
-            menuButtons[i].setActionCommand("" + i);
-            menuButtons[i].addActionListener(this);
-
         }
-        
-        menuP = new JPanel();
-        menuP.setLayout(new CardLayout());
-        menuP.add(buttonBox);
-        menuP.setOpaque(false);
+        menuButtons[0].setActionCommand("Menu-NewGame");
+        menuButtons[1].setActionCommand("Menu-LoadGame");
+        menuButtons[2].setActionCommand("Menu-Settings");
+        menuButtons[3].setActionCommand("Menu-Instructions");
+        menuButtons[4].setActionCommand("Menu-ExitGame");
 
-        backGroundP.add(headerP);
-        backGroundP.add(menuP);
-        add(backGroundP);
+        menuButtonPanel = new JPanel();
+        menuButtonPanel.add(buttonBox);
+        menuButtonPanel.setOpaque(false);
+
+        menuPanel = new JPanel();
+        menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
+        menuPanel.add(headerPanel);
+        menuPanel.add(menuButtonPanel);
+        menuPanel.setOpaque(false);
+
+
+        add(menuPanel);
 
         setVisible(true);
-        setBounds(450, 50, 800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        String command = e.getActionCommand();
-        int input = Integer.parseInt(command);
-
-        switch (input) {
-            case 0:
-                GameGui gg = new GameGui();
-                break;
-            case 1:
-                break;
-            case 2:
-                SettingsGui settingsGui = new SettingsGui();
-                headerP.setVisible(false);
-                menuP.setVisible(false);
-                backGroundP.add(settingsGui);
-                
-//                repaint();
-                
-               break;
-            case 3:
-                break;
-            case 4:
-                System.exit(0);
-                break;
-
-        }
+public void setMenuButtonListener(ActionListener l) {
+    for (int i = 0; i < menuButtons.length; i++) {
+        this.menuButtons[i].addActionListener(l);
     }
-
-    public static void main(String[] args) {
-        MainMenuGUI gUI = new MainMenuGUI();
-    }
-    
-
-    public void setMenuP(JPanel menuP) {
-        this.menuP = menuP;
-    }
-
-    public void setHeaderP(JPanel headerP) {
-        this.headerP = headerP;
-    }
+}
 
 }

@@ -7,7 +7,7 @@ public class Battleship {
 //        Menu menu = new Menu();
 //        menu.showMainMenu();
         
-        MainMenuGUI mainMenuGUI = new MainMenuGUI();
+        MainMenuGui mainMenuGUI = new MainMenuGui();
     }
 }
 
