@@ -4,12 +4,20 @@ import Gameobjects.Ships.Ship;
 import Gameobjects.Player.Player;
 import Gameobjects.Playfield.Playfield;
 import IO.IO;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+
 import Helper.Helper;
 
-public class Game {
+public class Game implements Serializable{
 
-    private ArrayList<Player> playerList;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4356896699088096722L;
+
+	private ArrayList<Player> playerList;
 
     private ArrayList<Ship> shipList;
 
