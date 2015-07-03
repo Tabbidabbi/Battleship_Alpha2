@@ -5,7 +5,11 @@
         <group>
             <file>file:/G:/hs/Prog2/Battleship_Alpha2/src/Main/BattleshipGui.java</file>
             <file>file:/G:/hs/Prog2/Battleship_Alpha2/src/Main/MainMenuGui.java</file>
+            <file>file:/G:/hs/Prog2/Battleship_Alpha2/src/Helper/Helper.java</file>
             <file>file:/G:/hs/Prog2/Battleship_Alpha2/src/Game/SettingsGui.java</file>
+            <file>file:/G:/hs/Prog2/Battleship_Alpha2/src/Main/Menu.java</file>
+            <file>file:/G:/hs/Prog2/Battleship_Alpha2/src/Game/Settings.java</file>
+            <file>file:/G:/hs/Prog2/Battleship_Alpha2/src/Game/InstructionsGui.java</file>
         </group>
     </open-files>
 </project-private>
