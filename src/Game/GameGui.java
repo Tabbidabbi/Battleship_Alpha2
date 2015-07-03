@@ -11,6 +11,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.*;
 import Gameobjects.Playfield.*;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 /**
  *
@@ -25,11 +28,14 @@ public class GameGui extends JPanel {
 
     JPanel playerListPanel;
 
+    JTextArea textOutputArea;
     JPanel textOutputPanel;
 
     JPanel shipListPanel;
 
     JPanel buttonPanel;
+    
+    private PrintStream standardOut;
 
     public GameGui() {
         setPreferredSize(new Dimension(1024, 768));
@@ -45,9 +51,18 @@ public class GameGui extends JPanel {
         playerListPanel = new JPanel();
         playerListPanel.setBackground(Color.red);
         playerListPanel.setPreferredSize(new Dimension(150, 250));
+        
+        textOutputArea = new JTextArea(10,35);
+        textOutputArea.setEditable(false);
+        PrintStream printStream = new PrintStream(new CustomOutputStream(textOutputArea));
+        standardOut = System.out;
+        System.setOut(printStream);
+        System.setErr(printStream);
+        
+        printStream.println("Hallo Welt");
 
         textOutputPanel = new JPanel();
-        textOutputPanel.setBackground(Color.yellow);
+        textOutputPanel.add(textOutputArea);
         textOutputPanel.setPreferredSize(new Dimension(450, 250));
 
         shipListPanel = new JPanel();
@@ -63,4 +78,19 @@ public class GameGui extends JPanel {
         setVisible(true);
     }
 
+    public class CustomOutputStream extends OutputStream {
+    private JTextArea textArea;
+     
+    public CustomOutputStream(JTextArea textArea) {
+        this.textArea = textArea;
+    }
+     
+    @Override
+    public void write(int b) throws IOException {
+        // redirects data to the text area
+        textArea.append(String.valueOf((char)b));
+        // scrolls the text area to the end of data
+        textArea.setCaretPosition(textArea.getDocument().getLength());
+    }
+}
 }
