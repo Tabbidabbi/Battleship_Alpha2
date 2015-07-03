@@ -132,7 +132,7 @@ public class Player implements Serializable {
 		this.lost = lost;
 	}
 
-	public boolean isIsAI() {
+	public boolean getIsAI() {
 		return isAI;
 	}
 
