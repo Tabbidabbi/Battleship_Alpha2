@@ -35,7 +35,7 @@ public class SettingsGui extends JPanel {
     JPanel[] singlePlayerPanel = new JPanel[6];
     JPanel playerPanel;
 
-    JTextField[] shipTextFields = new JTextField[4];
+    JSpinner[] setAmmountOfShipsSpinner;
     JLabel[] shipLabel = {new JLabel("Anzahl der Zerstörer:"),
         new JLabel("Anzahl der Fregatten:"), new JLabel("Anzahl der Korvetten:"),
         new JLabel("Anzahl der U-Boote:")};
@@ -43,7 +43,7 @@ public class SettingsGui extends JPanel {
     JPanel shipFieldsPanel;
 
     JLabel playFieldSizeLabel;
-    JTextField playFieldSizeTextField;
+    JSpinner playFieldSizeSpinner;
     JPanel playFieldSizePanel;
 
     JPanel categoriePanel;
@@ -54,11 +54,11 @@ public class SettingsGui extends JPanel {
     JPanel buttonPanel;
 
     MainMenuGui mainMenuGUI;
-    
+
     Settings gameSettings = new Settings();
 
     public SettingsGui() {
-        setPreferredSize(new Dimension(800, 600));
+//        setPreferredSize(new Dimension(800, 600));
         setLayout(new FlowLayout());
         headerLabel = new JLabel("Einstellungen");
         headerLabel.setFont(new Font("Serif", 25, 25));
@@ -70,7 +70,6 @@ public class SettingsGui extends JPanel {
         ammountPlayerComboBox = new JComboBox(comboBoxItems);
         ammountPlayerComboBox.addItemListener(new ComboBoxHandler());
         ammountPlayerComboBox.setSelectedItem(comboBoxItems[0]);
-        
 
         playerComboBoxPanel.add(playerComboBoxLabel);
         playerComboBoxPanel.add(ammountPlayerComboBox);
@@ -92,29 +91,29 @@ public class SettingsGui extends JPanel {
             }
 
         }
-
+        setAmmountOfShipsSpinner = new JSpinner[4];
         shipFieldsPanel = new JPanel();
         shipFieldsPanel.setLayout(new BoxLayout(shipFieldsPanel, BoxLayout.Y_AXIS));
         for (int i = 0; i < 4; i++) {
-            shipTextFields[i] = new JTextField(2);
+            setAmmountOfShipsSpinner[i] = new JSpinner();
             singleShipPanel[i] = new JPanel();
             singleShipPanel[i].add(shipLabel[i]);
-            singleShipPanel[i].add(shipTextFields[i]);
+            singleShipPanel[i].add(setAmmountOfShipsSpinner[i]);
             shipFieldsPanel.add(singleShipPanel[i]);
 //            shipLabel[i].setFont(new Font("Serif", 10, 15));
 //            shipLabel[i].setHorizontalAlignment(SwingConstants.CENTER);
         }
-        shipTextFields[0].setText("" + gameSettings.getAmountOfDestroyer());
-        shipTextFields[1].setText("" + gameSettings.getAmountOfFrigate());
-        shipTextFields[2].setText("" + gameSettings.getAmountOfCorvette());
-        shipTextFields[3].setText("" + gameSettings.getAmountOfSubmarine());
+        setAmmountOfShipsSpinner[0].setModel(new SpinnerNumberModel(gameSettings.getAmountOfDestroyer(), 0, 3, 1));
+        setAmmountOfShipsSpinner[1].setModel(new SpinnerNumberModel(gameSettings.getAmountOfFrigate(), 0, 4, 1));
+        setAmmountOfShipsSpinner[2].setModel(new SpinnerNumberModel(gameSettings.getAmountOfCorvette(), 0, 5, 1));
+        setAmmountOfShipsSpinner[3].setModel(new SpinnerNumberModel(gameSettings.getAmountOfSubmarine(), 0, 6, 1));
 
         playFieldSizeLabel = new JLabel("Spielfeldgröße:");
-        playFieldSizeTextField = new JTextField(2);
-        playFieldSizeTextField.setText("" + gameSettings.getPlayfieldSize());
+        playFieldSizeSpinner = new JSpinner();
+        playFieldSizeSpinner.setModel(new SpinnerNumberModel(gameSettings.getPlayfieldSize(), 0, 26, 1));
         playFieldSizePanel = new JPanel();
         playFieldSizePanel.add(playFieldSizeLabel);
-        playFieldSizePanel.add(playFieldSizeTextField);
+        playFieldSizePanel.add(playFieldSizeSpinner);
         shipFieldsPanel.add(playFieldSizePanel);
 
         categoriePanel = new JPanel();
@@ -124,8 +123,8 @@ public class SettingsGui extends JPanel {
         categoriePanel.add(playerPanel);
         categoriePanel.add(shipFieldsPanel);
 
-        backButton = new JButton("Zurück");
-        backButton.setActionCommand("Settings-BackButton");
+        backButton = new JButton("Hauptmenü");
+        backButton.setActionCommand("Settings-MainMenu");
         confirmButton = new JButton("Spiel Starten");
         confirmButton.setActionCommand("Settings-ConfirmButton");
 
@@ -170,7 +169,7 @@ public class SettingsGui extends JPanel {
                         playerTextFields[3].setEditable(false);
                         playerTextFields[4].setEditable(false);
                         playerTextFields[5].setEditable(false);
-                        
+
                         kiCheckboxes[2].setEnabled(false);
                         kiCheckboxes[3].setEnabled(false);
                         kiCheckboxes[4].setEnabled(false);
@@ -181,7 +180,7 @@ public class SettingsGui extends JPanel {
                         playerTextFields[3].setEditable(false);
                         playerTextFields[4].setEditable(false);
                         playerTextFields[5].setEditable(false);
-                        
+
                         kiCheckboxes[2].setEnabled(true);
                         kiCheckboxes[3].setEnabled(false);
                         kiCheckboxes[4].setEnabled(false);
@@ -193,7 +192,7 @@ public class SettingsGui extends JPanel {
                         playerTextFields[3].setEditable(true);
                         playerTextFields[4].setEditable(false);
                         playerTextFields[5].setEditable(false);
-                        
+
                         kiCheckboxes[2].setEnabled(true);
                         kiCheckboxes[3].setEnabled(true);
                         kiCheckboxes[4].setEnabled(false);
@@ -204,7 +203,7 @@ public class SettingsGui extends JPanel {
                         playerTextFields[3].setEditable(true);
                         playerTextFields[4].setEditable(true);
                         playerTextFields[5].setEditable(false);
-                        
+
                         kiCheckboxes[2].setEnabled(true);
                         kiCheckboxes[3].setEnabled(true);
                         kiCheckboxes[4].setEnabled(true);
@@ -215,7 +214,7 @@ public class SettingsGui extends JPanel {
                         playerTextFields[3].setEditable(true);
                         playerTextFields[4].setEditable(true);
                         playerTextFields[5].setEditable(true);
-                        
+
                         kiCheckboxes[2].setEnabled(true);
                         kiCheckboxes[3].setEnabled(true);
                         kiCheckboxes[4].setEnabled(true);
@@ -226,13 +225,13 @@ public class SettingsGui extends JPanel {
 
         }
     }
-    
+
     private class ShipTextFieldHandler implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
         }
-        
+
     }
 
 }
